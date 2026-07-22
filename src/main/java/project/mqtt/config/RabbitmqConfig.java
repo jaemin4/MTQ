@@ -21,24 +21,6 @@ public class RabbitmqConfig {
 
     private final RabbitmqProperties rabbitMqProperties;
 
-    // === AccessLog 설정 ===
-    @Bean
-    public DirectExchange exchangeAccessLog() {
-        return new DirectExchange(RabbitmqConstants.EXCHANGE_ACCESS_LOG);
-    }
-
-    @Bean
-    public Queue queueAccessLogSave() {
-        return new Queue(RabbitmqConstants.QUEUE_ACCESS_LOG_SAVE, true);
-    }
-
-    @Bean
-    public Binding bindingAccessLogSave(Queue queueAccessLogSave, DirectExchange exchangeAccessLog) {
-        return BindingBuilder.bind(queueAccessLogSave)
-                .to(exchangeAccessLog)
-                .with(RabbitmqConstants.ROUTING_ACCESS_LOG_SAVE);
-    }
-
     // === Mqtt 메세지 테스트 전용 ===
     @Bean
     public DirectExchange exchangeMqttMessage(){
