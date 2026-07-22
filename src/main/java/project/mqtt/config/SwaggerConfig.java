@@ -48,18 +48,7 @@ public class SwaggerConfig {
             if (openApi.getTags() != null) {
                 List<String> order = Arrays.asList(
                         "로그인",
-                        "인증",
-                        "유저",
-                        "농장",
-                        "병원",
-                        "인턴",
-                        "관리자 유저",
-                        "관리자 매핑",
-                        "개체",
-                        "분만",
-                        "수정",
-                        "진료/처치",
-                        "통계"
+                        "인증"
                 );
 
                 List<Tag> sortedTags = openApi.getTags().stream()
