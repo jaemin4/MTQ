@@ -1,0 +1,76 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mqtt
+
+  web:
+    resources:
+      add-mappings: false
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: 5672
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
+  datasource:
+    url:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username:
+    password:
+    hikari:
+      max-lifetime: 300000
+      idle-timeout: 6000000
+      validation-timeout: 5000
+      maximum-pool-size: 7
+      connection-test-query: 'select 1'
+      connection-timeout: 100000
+      minimum-idle: 2
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        hbm2ddl:
+          auto: update
+
+  profiles:
+    active: consumer
+
+logging:
+  level:
+    org.hibernate.SQL: OFF
+    org.hibernate.type.descriptor.sql.BasicBinder: OFF
+    org.hibernate.type: OFF
+
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.web.client.RestTemplate: INFO
+
+    org.springframework.boot.context.config: DEBUG   # ← 추가
+
+    com.example.bobivet: DEBUG
+    com.example.bobivet.security: DEBUG
+    com.example.bobivet.controller: DEBUG
+    com.example.bobivet.service: DEBUG
+    com.example.bobivet.repository: DEBUG
+    com.example.bobivet.aop.log: INFO
+
+security:
+  whitelist:
+    - /auth/**
+    - /swagger-ui/**
+    - /v3/api-docs/**
+    - /error
