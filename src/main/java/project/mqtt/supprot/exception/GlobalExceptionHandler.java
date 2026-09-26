@@ -2,7 +2,6 @@ package project.mqtt.supprot.exception;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -92,14 +91,14 @@ public class GlobalExceptionHandler {
         return APIResponse.fail(HttpStatus.NOT_FOUND.value(), "요청한 경로를 찾을 수 없습니다.");
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public APIResponse<Object> handleDataIntegrityViolation(DataIntegrityViolationException e) {
-        String causeMsg = e.getMostSpecificCause() != null ? e.getMostSpecificCause().getMessage() : e.getMessage();
-        log.warn("[DataIntegrityViolationException] {}", causeMsg);
-        log.debug("[DataIntegrityViolationException stack]", e);
-        return APIResponse.fail(HttpStatus.CONFLICT.value(), "데이터 무결성 오류: " + causeMsg);
-    }
+//    @ExceptionHandler(DataIntegrityViolationException.class)
+//    @ResponseStatus(HttpStatus.CONFLICT)
+//    public APIResponse<Object> handleDataIntegrityViolation(DataIntegrityViolationException e) {
+//        String causeMsg = e.getMostSpecificCause() != null ? e.getMostSpecificCause().getMessage() : e.getMessage();
+//        log.warn("[DataIntegrityViolationException] {}", causeMsg);
+//        log.debug("[DataIntegrityViolationException stack]", e);
+//        return APIResponse.fail(HttpStatus.CONFLICT.value(), "데이터 무결성 오류: " + causeMsg);
+//    }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
